@@ -13,7 +13,7 @@ public class UserView {
         this.userController = userController;
     }
 
-    public void run(){
+    public void run() {
         Commands com;
 
         while (true) {
@@ -38,6 +38,9 @@ public class UserView {
                 case UPDATE:
                     String userId = prompt("Enter user id: ");
                     userController.updateUser(userId, createUser());
+                case LIST:
+                    System.out.println(userController.getAllUsers());
+
             }
         }
     }
@@ -50,8 +53,18 @@ public class UserView {
 
     private User createUser() {
         String firstName = prompt("Имя: ");
+        if (firstName.isEmpty()) {
+            throw new RuntimeException("Имя не может быть пустым");
+        }
         String lastName = prompt("Фамилия: ");
+        if (lastName.isEmpty()) {
+            throw new RuntimeException("Фамилия не может быть пустой");
+        }
         String phone = prompt("Номер телефона: ");
-        return new User(firstName, lastName, phone);
+        if (phone.isEmpty()) {
+            throw new RuntimeException("Телефон не может быть пустым");
+        }
+
+        return new User(firstName.replaceAll(" ", ""), lastName.replaceAll(" ", ""), phone);
     }
 }

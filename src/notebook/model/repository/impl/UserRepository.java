@@ -52,14 +52,24 @@ public class UserRepository implements GBRepository {
 
     @Override
     public Optional<User> update(Long userId, User update) {
+        if (userId == null) {
+            throw  new RuntimeException("id cannot be empty");
+        }
         List<User> users = findAll();
         User editUser = users.stream()
                 .filter(u -> u.getId()
                         .equals(userId))
                 .findFirst().orElseThrow(() -> new RuntimeException("User not found"));
-        editUser.setFirstName(update.getFirstName());
-        editUser.setLastName(update.getLastName());
-        editUser.setPhone(update.getPhone());
+        if (!update.getFirstName().isEmpty()) {
+            editUser.setFirstName(update.getFirstName());
+        }
+        if (!update.getLastName().isEmpty()) {
+            editUser.setLastName(update.getLastName());
+        }
+        if (!update.getPhone().isEmpty()) {
+            editUser.setPhone(update.getPhone());
+        }
+
         write(users);
         return Optional.of(update);
     }
