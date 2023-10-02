@@ -1,3 +1,0 @@
-1,Lionel,Messi,235235
-2,Art,Yar,345345
-3,Nikola,Tesla,345345

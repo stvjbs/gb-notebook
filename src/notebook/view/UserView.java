@@ -53,9 +53,6 @@ public class UserView {
                     String id1 = prompt("Enter user id: ");
                     userController.deleteUser(id1);
                     break;
-//                case SAVE:
-//                    userController.saveUser();
-//                    break;
             }
         }
     }
